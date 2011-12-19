@@ -19,19 +19,16 @@ namespace Vemod
 
             float r, g, b;
 
-            // RED
             if (r1 < r2)
                 r = (float)(r1 + 1) / (r2 + 1);
             else
                 r = (float)(r2 + 1) / (r1 + 1);
 
-            // GREEN
             if (g1 < g2)
                 g = (float)(g1 + 1) / (g2 + 1);
             else
                 g = (float)(g2 + 1) / (g1 + 1);
 
-            // BLUE
             if (b1 < b2)
                 b = (float)(b1 + 1) / (b2 + 1);
             else
@@ -61,22 +58,22 @@ namespace Vemod
             return Vemod.Image.bitmap2imagearray(b);
         }
 
-        public static void imagearray2file(Color[,] picture, String path)
+        public static void imagearray2file(Color[,] image, String filename)
         {
-            int height = picture.GetLength(1);
-            int width = picture.GetLength(0);
+            Bitmap b = new Bitmap(image.GetLength(0), image.GetLength(1));
 
-            Bitmap b = new Bitmap(width, height);
+            int width = image.GetLength(0);
+            int height = image.GetLength(1);
 
-            for (int y = 0; y < b.Height; y++)
+            for (int x = 0; x < width; ++x)
             {
-                for (int x = 0; x < b.Width; x++)
+                for (int y = 0; y < height; ++y)
                 {
-                    b.SetPixel(x, y, picture[x,y]);
+                    b.SetPixel(x, y, image[x,y]);
                 }
             }
 
-            b.Save(path);
+            b.Save(filename, System.Drawing.Imaging.ImageFormat.Bmp);
         }
 
         /*
